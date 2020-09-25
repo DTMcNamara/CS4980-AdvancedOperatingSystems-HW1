@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include "alloc.h"
-#include "math.h"
 
 unsigned char usageTreeLinear[NUM_BLOCKS];
 

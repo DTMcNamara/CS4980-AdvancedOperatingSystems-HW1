@@ -1,7 +1,7 @@
 //
 // Created by Dtmcn on 9/17/2020.
 //
-#include "buddy.c"
+#include "alloc.h"
 int main(){
     b_init();
     b_allocate(24);
