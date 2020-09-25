@@ -30,7 +30,7 @@ extern unsigned int s_allocate(unsigned int mem_size) {
             }
         }
 
-        if (check) {
+        if (check == true) {
             for (unsigned int i = 0; i < mem_size; i++) usage[start + i] = true;
             return start;
         }
@@ -40,9 +40,7 @@ extern unsigned int s_allocate(unsigned int mem_size) {
 }
 
 void s_free(unsigned int start_ptr) {
-    if( start_ptr != NULL_PTR){
-        //...
-    }
+
 }
 
 unsigned int s_read(unsigned int base, unsigned int offset) {
@@ -51,20 +49,4 @@ unsigned int s_read(unsigned int base, unsigned int offset) {
 
 void s_write(unsigned int base, unsigned int offset, unsigned int value) {
     memory[base + offset] = value;
-}
-
-/**
- * The function s_overhead returns the number of bytes that are used
- *      to keep side information (e.g., what pages are allocated)
- */
-unsigned int s_overhead(){
-
-}
-
-/**
- * Similarly, s_fragmentation returns the number of bytes lost due to internal fragmentation.
- *
- */
-unsigned int s_fragmentation(){
-
 }

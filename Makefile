@@ -22,7 +22,7 @@ driver_list.o: driver_list.c
 # linear.o: linear.c
 # 	gcc $(OPTIONS) -g -c linear.c -o linear.o
 
-list_buddy_example: buddy_example.o buddy.o
+list_buddy_example: buddy.o buddy_example.o
 	gcc $(OPTIONS) -g buddy.o buddy_example.o -o list_buddy_example
 
 buddy.o: buddy.c
@@ -30,6 +30,3 @@ buddy.o: buddy.c
 
 buddy_example: buddy_example.c
 	gcc $(OPTIONS) -g -c buddy_example.c -o buddy_example.o
-
-clean:
-	rm -f *.o buddy_example linear
