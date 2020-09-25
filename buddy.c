@@ -2,49 +2,76 @@
 #include "alloc.h"
 #include "math.h"
 
-#define BLOCK_SIZES (MEMSIZE)/2^(SMALLEST_BLOCK)
-#define NUM_LISTS N-SMALLEST_BLOCK+1
+unsigned char usageTreeLinear[NUM_BLOCKS];
 
-bool usage[NUM_LISTS][BLOCK_SIZES];
-int mem_list[NUM_LISTS][BLOCK_SIZES];
 unsigned int memory[MEMSIZE];
 
+unsigned int parent(unsigned int index){
+    return (index/2);
+}
+
+unsigned int left_child(unsigned int index){
+    return (index * 2);
+}
+
+unsigned int right_child(unsigned int index){
+    return ((index * 2) + 1);
+}
+
+unsigned int sibling(unsigned int index){
+    if(index % 2 == 0){
+        return (index + 1);
+    }else{
+        return (index - 1);
+    }
+}
+
+/*
+ *  0b00000010 = split, not used
+ *  0b00000001 = used, not split
+ *  0b00000000 = not used or split
+ */
+
+void split_parent(unsigned int index){
+    if(usageTreeLinear[parent(index)] == 0b00000010){
+        return;
+    }else{
+        split_parent(parent(index));
+    }
+}
+
 void b_init() {
-    for (int i = 0; i < NUM_LISTS; i++) {
-        for (int j = 0; j < BLOCK_SIZES; j++) {
-            usage[i][j] = false;
-            mem_list[i][j] = MEMSIZE+1;
+    for(int i = 1; i < NUM_BLOCKS*2; i++){
+        usageTreeLinear[i] = 0b00000000;
+    }
+    usageTreeLinear[0] = 0b00000011;
+}
+
+extern unsigned int b_allocate(unsigned int mem_size) {
+    int max = MEMSIZE;
+    int min = 2^SMALLEST_BLOCK;
+    //2^layer = start index of possible blocks && the number of blocks of that size
+    int layer = 0;
+    int block_size = 0;
+    //Finds the needed layer of the tree
+    if(MEMSIZE < mem_size){
+        return NULL_PTR;
+    }
+    for(int i = max; (min && mem_size) < i/2; i = i/2){
+        layer++;
+        block_size = i;
+    }
+    int layer_start_index = 2^layer;
+    int layer_end_index = 2^(layer+1);
+    for (int i = layer_start_index; i < layer_end_index; i++){
+        //open, un-split block of needed size
+        if(usageTreeLinear[i] == 0b00000000){
+            split_parent(i);
+            return memory[block_size * (layer_end_index - layer_start_index)];
         }
     }
-    //set up first block of full size(MEMSIZE)
-    mem_list[0][0]=0;
 }
 
-unsigned int b_allocate(unsigned int mem_size) {
-
-    //if mem doesnt fit, return null_ptr
-    if (MEMSIZE < mem_size) { return NULL_PTR; }
-    else {
-        //check each list
-        for (int i = 0; i < NUM_LISTS) {
-            //how big is the current block?
-            int current_block = MEMSIZE / (2 ^ i);
-            //check each block in list
-            for (int j = 0; j < BLOCK_SIZES) {
-                //check if all mem spanned in a row
-                if (MEMSIZE / (current_block * (j)) == 1) {
-                    break;
-                }
-
-            }
-        }
-
-    }
-}
-
-void block_split(int mem_list, int level, int current_size) {
-
-}
 
 void b_free(unsigned int start_ptr) {
 

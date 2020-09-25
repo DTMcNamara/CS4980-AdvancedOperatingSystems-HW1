@@ -6,6 +6,11 @@
 
 void s_init();
 unsigned int s_allocate(unsigned int size);
+unsigned int parent(unsigned int index);
+unsigned int left_child(unsigned int index);
+unsigned int right_child(unsigned int index);
+unsigned int sibling(unsigned int index);
+void split_parent(unsigned int index);
 void s_free(unsigned int start_ptr);
 unsigned int s_read(unsigned int base, unsigned int offset);
 void s_write(unsigned int base, unsigned int offset, unsigned int value);
