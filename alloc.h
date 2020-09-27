@@ -30,5 +30,6 @@ void b_write(unsigned int index, unsigned int value);
 
 unsigned int b_overhead();
 unsigned int b_fragmentation();
+unsigned int b_fragmentation_helper(unsigned int index);
 
 #endif
