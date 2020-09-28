@@ -9,17 +9,22 @@ int main(){
 
     printf("Allocating...\n");
     unsigned int first = p_allocate(16);
-    unsigned int second = p_allocate(256);
-    unsigned int third = p_allocate(128);
+    unsigned int second = p_allocate(128);
+    unsigned int third = p_allocate(290);
     unsigned int fourth = p_allocate(16);
     unsigned int fifth = p_allocate(16);
 
-    printf("printing...\n");
-    printf("%d\n", first);
-    printf("%d\n", second);
-    printf("%d\n", third);
-    printf("%d\n", fourth);
-    printf("%d\n", fifth);
+    printf("Printing...\n"
+           "First: %d\n"
+           "Second: %d\n"
+           "Third: %d\n"
+           "Fourth: %d\n"
+           "Fifth: %d\n",
+           first,
+           second,
+           third,
+           fourth,
+           fifth);
 
     printf("Writing...\n");
     p_write(first, 26);
@@ -28,7 +33,7 @@ int main(){
     p_write(fourth, 420);
     p_write(fifth, 69);
 
-    printf("Reading...\n "
+    printf("Reading...\n"
            "First: %d\n"
            "Second: %d\n"
            "Third: %d\n"
@@ -42,6 +47,18 @@ int main(){
 
     printf("Fragmentation: %d\n", p_fragmentation());
     printf("Overhead: %d\n", p_overhead());
+
+    printf("Freeing First...\n");
+    p_free(first);
+    printf("Re-Allocating First...");
+    first = p_allocate(24);
+    printf("Printing First: %d\n", first);
+
+    printf("Freeing Second...\n");
+    p_free(second);
+    printf("Re-Allocating Second...");
+    second = p_allocate(145);
+    printf("Printing Second: %d\n", second);
 
     return 0;
 }
