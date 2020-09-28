@@ -3,11 +3,11 @@
 //
 #include <stdbool.h>
 #include "alloc.h"
-#define PAGES (MEMSIZE/PAGESIZE)
 
+unsigned int pages = NUMPAGES;
 unsigned int fragmentation;
-unsigned int memory[MEM_SIZE];
-bool usage[PAGES];
+unsigned int memory[MEMSIZE];
+bool usage[NUMPAGES];
 
 void p_init(){
     for (unsigned int i = 0; i < MEMSIZE; i++) {
@@ -28,12 +28,12 @@ unsigned int p_allocate(unsigned int size){
     }
     for(int i =0;i<pages;i++){
         if(usage[i]==false){
-            for(int j = 0; j =< counter; j++){
+            for(int j = 0; j <= counter; j++){
                 if(usage[i+j]!=false){
                     check = false;
                 }
                 if(check == true){
-                    for(int k = 0; k =< counter; k++){
+                    for(int k = 0; k <= counter; k++){
                         memory[(PAGESIZE * (k+1))-1] = '\f';
                     }
                     memory[(PAGESIZE * (counter))-1] = '\0';

@@ -50,10 +50,3 @@ unsigned int s_read(unsigned int base, unsigned int offset) {
 void s_write(unsigned int base, unsigned int offset, unsigned int value) {
     memory[base + offset] = value;
 }
-
-unsigned int s_overhead(){
-
-}
-unsigned int s_fragmentation(){
-
-}

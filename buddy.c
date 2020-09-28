@@ -127,6 +127,21 @@ void fill_children(unsigned int index, unsigned char opcode) {
 }
 
 /**
+ * Method to help the fragmentation find the correct place of fragmentation
+ * @return
+ */
+unsigned int b_fragmentation_helper(unsigned int index){
+    unsigned int test = memory[index], counter = 1;
+    while(test != NULL_PTR){
+        index++;
+        test = memory[index];
+        counter++;
+    }
+    return counter;
+
+}
+
+/**
  * Method to fill the every node, but the root, with free, or not split not used.
  *  The root will be set as split to signify that it is the root.
  */
@@ -187,7 +202,6 @@ extern unsigned int b_allocate(unsigned int mem_size) {
             /*for(int j = 1; j < NUM_BLOCKS*2; j++){
                 printf("index %d: %d\n", j, usageTreeLinear[j]);
             }
-
             printf("mem_size: %d\nMEMSIZE: %d\nlayer: %d\nblock_range: %d\ni: %d\nlayer_start_index: %d\n",
                    mem_size,MEMSIZE, layer, block_range,i,layer_start_index);
             */
@@ -240,7 +254,6 @@ void b_free(unsigned int index){
     // Commented out printing of the tree
     /*
      for(int i = 1; i < NUM_BLOCKS*2; i++){
-
         printf("index %d: %d\n", i, usageTreeLinear[i]);
     }*/
 }
@@ -276,19 +289,4 @@ unsigned int b_overhead(){
  */
 unsigned int b_fragmentation(){
     return fragmentation;
-}
-
-/**
- * Method to help the fragmentation find the correct place of fragmentation
- * @return
- */
-unsigned int b_fragmentation_helper(unsigned int index){
-    unsigned int test = memory[index], counter = 1;
-    while(test != NULL_PTR){
-        index++;
-        test = memory[index];
-        counter++;
-    }
-    return counter;
-
 }
