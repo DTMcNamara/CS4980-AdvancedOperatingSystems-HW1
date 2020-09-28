@@ -34,4 +34,11 @@ void b_write(unsigned int index, unsigned int value);
 unsigned int b_overhead();
 unsigned int b_fragmentation();
 
+unsigned int p_allocate(unsigned int size);
+void p_free(unsigned int start_ptr);
+unsigned int p_read(unsigned int index);
+void p_write(unsigned int index, unsigned int value);
+unsigned int p_overhead();
+unsigned int p_fragmentation();
+
 #endif
